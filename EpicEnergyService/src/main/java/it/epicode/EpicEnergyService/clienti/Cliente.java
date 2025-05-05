@@ -48,4 +48,6 @@ public class Cliente {
 
     @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
+
+
 }
