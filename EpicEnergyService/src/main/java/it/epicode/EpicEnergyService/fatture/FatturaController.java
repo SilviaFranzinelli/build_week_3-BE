@@ -21,7 +21,7 @@ public class FatturaController {
     }
 
     @GetMapping("/cliente/{id}")
-    public List<FatturaResponse> getFattureByClienteId(@PathVariable Long clienteId) {
+    public List<FatturaResponse> getFattureByClienteId(@RequestParam Long clienteId) {
         return fatturaService.getFattureByClienteId(clienteId);
     }
 
@@ -31,12 +31,12 @@ public class FatturaController {
     }
 
     @GetMapping("/data")
-    public List<FatturaResponse> getFattureByData(@PathVariable LocalDate data) {
+    public List<FatturaResponse> getFattureByData(@RequestParam LocalDate data) {
         return fatturaService.getFattureByData(data);
     }
 
     @GetMapping("/anno")
-    public List<FatturaResponse> getFattureByYear(@PathVariable int year) {
+    public List<FatturaResponse> getFattureByYear(@RequestParam int year) {
         return fatturaService.getFattureByYear(year);
     }
 }
