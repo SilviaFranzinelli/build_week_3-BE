@@ -1,6 +1,8 @@
 package it.epicode.EpicEnergyService.fatture;
 
 
+import it.epicode.EpicEnergyService.clienti.Cliente;
+import it.epicode.EpicEnergyService.clienti.ClienteRepository;
 import it.epicode.EpicEnergyService.common.CommonResponse;
 import it.epicode.EpicEnergyService.enums.Stato;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,6 +24,9 @@ public class FatturaService {
 
     @Autowired
     private FatturaRepository fatturaRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
 
 //    public List<FatturaResponse> getAllFatture() {
 //        List<Fattura> fatture = fatturaRepository.findAll();
@@ -103,7 +108,16 @@ public class FatturaService {
 
     public CommonResponse saveFattura(FatturaRequest request) {
         Fattura fattura = new Fattura();
-                BeanUtils.copyProperties(request, fattura);
+               fattura.setData(request.getData());
+               fattura.setImporto(request.getImporto());
+               fattura.setStato(request.getStato());
+
+               Cliente cliente = clienteRepository
+                       .findById(request.getClienteId())
+                       .orElseThrow(() -> new EntityNotFoundException("Cliente non trovato"));
+
+               fattura.setCliente(cliente);
+
         fatturaRepository.save(fattura);
         return new CommonResponse(fattura.getNumero());
     }
@@ -125,7 +139,37 @@ public class FatturaService {
         fatturaRepository.deleteById(id);
     }
 
-    public Page<FatturaResponse> getAllFatture(int page, int size, String sort) {
+//    public Page<FatturaResponse> getAllFatture(int page, int size){
+//
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<Fattura> fatturaPage = fatturaRepository.findAll(pageable);
+//
+//        return fatturaPage.map(fattura -> new FatturaResponse(
+//                fattura.getNumero(),
+//                fattura.getData(),
+//                fattura.getImporto(),
+//                fattura.getStato(),
+//                fattura.getCliente().getId()
+//        ));
+//    }
+
+    public FatturaResponse findFatturaById(Long id){
+
+        Fattura fattura = fatturaRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Fattura non trovata"));
+
+        return new FatturaResponse(
+                fattura.getNumero(),
+                fattura.getData(),
+                fattura.getImporto(),
+                fattura.getStato(),
+                fattura.getCliente().getId()
+        );
+    }
+
+
+    public Page<FatturaResponse> getAllFattureSort(int page, int size, String sort) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
         Page<Fattura> fatturaPage = fatturaRepository.findAll(pageable);
 

@@ -63,11 +63,22 @@ public class FatturaController {
         fatturaService.updateFattura(id, request);
     }
 
+//    @GetMapping
+//    public Page<FatturaResponse> getAllFatture(@RequestParam(defaultValue = "0") int page,
+//                                               @RequestParam(defaultValue = "10") int size) {
+//        return fatturaService.getAllFatture(page, size);
+//    }
+
+    @GetMapping("/{id}")
+    public FatturaResponse findFatturaById(@PathVariable Long id) {
+        return fatturaService.findFatturaById(id);
+    }
+
     @GetMapping
-    public Page<FatturaResponse> getAllFatture(@RequestParam(defaultValue = "0") int page,
+    public Page<FatturaResponse> getAllFattureSort(@RequestParam(defaultValue = "0") int page,
                                                @RequestParam(defaultValue = "10") int size,
-                                               @RequestParam(defaultValue = "id") String sort) {
-        return fatturaService.getAllFatture(page, size, sort);
+                                               @RequestParam(defaultValue = "numero") String sort) {
+        return fatturaService.getAllFattureSort(page, size, sort);
     }
 
     @GetMapping("/order-by-year")
