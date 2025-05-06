@@ -30,7 +30,7 @@ public class Fattura {
     private Stato stato;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
 }

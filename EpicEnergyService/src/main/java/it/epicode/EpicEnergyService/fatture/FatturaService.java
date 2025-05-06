@@ -1,8 +1,15 @@
 package it.epicode.EpicEnergyService.fatture;
 
 
+import it.epicode.EpicEnergyService.common.CommonResponse;
 import it.epicode.EpicEnergyService.enums.Stato;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -16,83 +23,158 @@ public class FatturaService {
     @Autowired
     private FatturaRepository fatturaRepository;
 
-    public List<FatturaResponse> getAllFatture() {
-        List<Fattura> fatture = fatturaRepository.findAll();
-        return fatture.stream()
-                .map(fattura -> new FatturaResponse(
-                        fattura.getNumero(),
-                        fattura.getData(),
-                        fattura.getImporto(),
-                        fattura.getStato(),
-                        fattura.getCliente().getId()
-                ))
-                .toList();
+//    public List<FatturaResponse> getAllFatture() {
+//        List<Fattura> fatture = fatturaRepository.findAll();
+//        return fatture.stream()
+//                .map(fattura -> new FatturaResponse(
+//                        fattura.getNumero(),
+//                        fattura.getData(),
+//                        fattura.getImporto(),
+//                        fattura.getStato(),
+//                        fattura.getCliente().getId()
+//                ))
+//                .toList();
+//    }
+//
+//    public List<FatturaResponse> getFattureByClienteId(Long clienteId) {
+//        List<Fattura> fatture = fatturaRepository.findByClienteId(clienteId);
+//        return fatture.stream()
+//                .map(fattura -> new FatturaResponse(
+//                        fattura.getNumero(),
+//                        fattura.getData(),
+//                        fattura.getImporto(),
+//                        fattura.getStato(),
+//                        fattura.getCliente().getId()
+//                ))
+//                .toList();
+//    }
+//
+//    public List<FatturaResponse> getFattureByStato(Stato stato) {
+//        List<Fattura> fatture = fatturaRepository.findByStato(stato);
+//        return fatture.stream()
+//                .map(fattura -> new FatturaResponse(
+//                        fattura.getNumero(),
+//                        fattura.getData(),
+//                        fattura.getImporto(),
+//                        fattura.getStato(),
+//                        fattura.getCliente().getId()
+//                ))
+//                .toList();
+//    }
+//
+//    public List<FatturaResponse> getFattureByData(LocalDate data) {
+//        List<Fattura> fatture = fatturaRepository.findByData(data);
+//        return fatture.stream()
+//                .map(fattura -> new FatturaResponse(
+//                        fattura.getNumero(),
+//                        fattura.getData(),
+//                        fattura.getImporto(),
+//                        fattura.getStato(),
+//                        fattura.getCliente().getId()
+//                ))
+//                .toList();
+//    }
+//
+//    public List<FatturaResponse> getFattureByYear(int year) {
+//        List<Fattura> fatture = fatturaRepository.findByYear(year);
+//        return fatture.stream()
+//                .map(fattura -> new FatturaResponse(
+//                        fattura.getNumero(),
+//                        fattura.getData(),
+//                        fattura.getImporto(),
+//                        fattura.getStato(),
+//                        fattura.getCliente().getId()
+//                ))
+//                .toList();
+//    }
+//
+//    public List<FatturaResponse> getFattureByImportoBetween(double min, double max) {
+//        List<Fattura> fatture = fatturaRepository.findByImportoBetween(min, max);
+//        return fatture.stream()
+//                .map(fattura -> new FatturaResponse(
+//                        fattura.getNumero(),
+//                        fattura.getData(),
+//                        fattura.getImporto(),
+//                        fattura.getStato(),
+//                        fattura.getCliente().getId()
+//                ))
+//                .toList();
+//    }
+
+    public CommonResponse saveFattura(FatturaRequest request) {
+        Fattura fattura = new Fattura();
+                BeanUtils.copyProperties(request, fattura);
+        fatturaRepository.save(fattura);
+        return new CommonResponse(fattura.getNumero());
     }
 
-    public List<FatturaResponse> getFattureByClienteId(Long clienteId) {
-        List<Fattura> fatture = fatturaRepository.findByClienteId(clienteId);
-        return fatture.stream()
-                .map(fattura -> new FatturaResponse(
-                        fattura.getNumero(),
-                        fattura.getData(),
-                        fattura.getImporto(),
-                        fattura.getStato(),
-                        fattura.getCliente().getId()
-                ))
-                .toList();
+    public void updateFattura(Long id, FatturaRequest request){
+        Fattura fattura = fatturaRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Fattura non trovata"));
+
+        BeanUtils.copyProperties(request, fattura);
+        fatturaRepository.save(fattura);
     }
 
-    public List<FatturaResponse> getFattureByStato(Stato stato) {
-        List<Fattura> fatture = fatturaRepository.findByStato(stato);
-        return fatture.stream()
-                .map(fattura -> new FatturaResponse(
-                        fattura.getNumero(),
-                        fattura.getData(),
-                        fattura.getImporto(),
-                        fattura.getStato(),
-                        fattura.getCliente().getId()
-                ))
-                .toList();
+    public void deleteFattura(Long id){
+        Fattura fattura = fatturaRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Fattura non trovata"));
+
+        fatturaRepository.deleteById(id);
     }
 
-    public List<FatturaResponse> getFattureByData(LocalDate data) {
-        List<Fattura> fatture = fatturaRepository.findByData(data);
-        return fatture.stream()
-                .map(fattura -> new FatturaResponse(
-                        fattura.getNumero(),
-                        fattura.getData(),
-                        fattura.getImporto(),
-                        fattura.getStato(),
-                        fattura.getCliente().getId()
-                ))
-                .toList();
+    public Page<FatturaResponse> getAllFatture(int page, int size, String sort) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+        Page<Fattura> fatturaPage = fatturaRepository.findAll(pageable);
+
+        return fatturaPage.map(fattura -> new FatturaResponse(
+                fattura.getNumero(),
+                fattura.getData(),
+                fattura.getImporto(),
+                fattura.getStato(),
+                fattura.getCliente().getId()
+        ));
     }
 
-    public List<FatturaResponse> getFattureByYear(int year) {
-        List<Fattura> fatture = fatturaRepository.findByYear(year);
-        return fatture.stream()
-                .map(fattura -> new FatturaResponse(
-                        fattura.getNumero(),
-                        fattura.getData(),
-                        fattura.getImporto(),
-                        fattura.getStato(),
-                        fattura.getCliente().getId()
-                ))
-                .toList();
+    public Page<FatturaResponse> getAllFattureOrderByYear(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("data").ascending());
+        Page<Fattura> fatturaPage = fatturaRepository.findAllOrderByYear(pageable);
+
+        return fatturaPage.map(fattura -> new FatturaResponse(
+                fattura.getNumero(),
+                fattura.getData(),
+                fattura.getImporto(),
+                fattura.getStato(),
+                fattura.getCliente().getId()
+        ));
     }
 
-    public List<FatturaResponse> getFattureByImportoBetween(double min, double max) {
-        List<Fattura> fatture = fatturaRepository.findByImportoBetween(min, max);
-        return fatture.stream()
-                .map(fattura -> new FatturaResponse(
-                        fattura.getNumero(),
-                        fattura.getData(),
-                        fattura.getImporto(),
-                        fattura.getStato(),
-                        fattura.getCliente().getId()
-                ))
-                .toList();
+    public Page<FatturaResponse> getAllFattureByImportoBetween(double min, double max, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Fattura> fatturaPage = fatturaRepository.findByImportoBetweenPage(min, max, pageable);
+
+        return fatturaPage.map(fattura -> new FatturaResponse(
+                fattura.getNumero(),
+                fattura.getData(),
+                fattura.getImporto(),
+                fattura.getStato(),
+                fattura.getCliente().getId()
+        ));
     }
 
+    public Page<FatturaResponse> getAllFattureByStato(Stato stato, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Fattura> fatturaPage = fatturaRepository.findByStatoPage(stato, pageable);
+
+        return fatturaPage.map(fattura -> new FatturaResponse(
+                fattura.getNumero(),
+                fattura.getData(),
+                fattura.getImporto(),
+                fattura.getStato(),
+                fattura.getCliente().getId()
+        ));
+    }
 
 }
