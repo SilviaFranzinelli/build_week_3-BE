@@ -139,19 +139,19 @@ public class FatturaService {
         fatturaRepository.deleteById(id);
     }
 
-//    public Page<FatturaResponse> getAllFatture(int page, int size){
-//
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Fattura> fatturaPage = fatturaRepository.findAll(pageable);
-//
-//        return fatturaPage.map(fattura -> new FatturaResponse(
-//                fattura.getNumero(),
-//                fattura.getData(),
-//                fattura.getImporto(),
-//                fattura.getStato(),
-//                fattura.getCliente().getId()
-//        ));
-//    }
+    public Page<FatturaResponse> getAllFatture(int page, int size){
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Fattura> fatturaPage = fatturaRepository.findAll(pageable);
+
+        return fatturaPage.map(fattura -> new FatturaResponse(
+                fattura.getNumero(),
+                fattura.getData(),
+                fattura.getImporto(),
+                fattura.getStato(),
+                fattura.getCliente().getId()
+        ));
+    }
 
     public FatturaResponse findFatturaById(Long id){
 
@@ -221,4 +221,11 @@ public class FatturaService {
         ));
     }
 
+    public double getTotaleFatturatoByClienteId(Long clienteId){
+
+        List<Fattura> fatture = fatturaRepository.findByClienteId(clienteId);
+        return fatture.stream()
+                .mapToDouble(Fattura::getImporto)
+                .sum();
+    }
 }

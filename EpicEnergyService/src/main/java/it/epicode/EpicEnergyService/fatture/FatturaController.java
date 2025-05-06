@@ -101,4 +101,9 @@ public class FatturaController {
                                                       @RequestParam(defaultValue = "10") int size) {
         return fatturaService.getAllFattureByStato(stato, page, size);
     }
+
+    @GetMapping("/totale-fatturato/{clienteId}")
+    public double getTotaleFatturatoByClienteId(@PathVariable Long clienteId) {
+        return fatturaService.getTotaleFatturatoByClienteId(clienteId);
+    }
 }
