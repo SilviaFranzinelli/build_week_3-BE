@@ -47,4 +47,7 @@ public class Cliente {
     private String logoAziendale;
 
     private TipoCliente tipoCliente;
+
+//    private Indirizzo sedeLegale;
+//    private Indirizzo sedeOperativa;
 }
