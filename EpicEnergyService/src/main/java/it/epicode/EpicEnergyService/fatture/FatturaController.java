@@ -87,7 +87,7 @@ public class FatturaController {
         return fatturaService.getAllFattureOrderByYear(page, size);
     }
 
-    @GetMapping("/range")
+    @GetMapping("/importo/range")
     public Page<FatturaResponse> getAllFattureByImportoBetween(@RequestParam double min,
                                                                 @RequestParam double max,
                                                                 @RequestParam(defaultValue = "0") int page,
