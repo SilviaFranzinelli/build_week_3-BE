@@ -1,6 +1,5 @@
 package it.epicode.EpicEnergyService.auth;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -20,7 +19,11 @@ public class AuthRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Optional<User> adminUser = appUserService.findByUsername("admin");
+        // Inizializza i ruoli principali
+        initializeRoles();
+
+        // Verifica se esiste l'utente admin, altrimenti lo crea
+        Optional<AppUser> adminUser = appUserService.findByUsername("admin");
         if (adminUser.isEmpty()) {
             Role adminRole = roleRepository.findByName(RoleType.ROLE_ADMIN)
                     .orElseThrow(() -> new RuntimeException("Ruolo ROLE_ADMIN non trovato"));
@@ -35,7 +38,8 @@ public class AuthRunner implements ApplicationRunner {
             );
         }
 
-        Optional<User> normalUser = appUserService.findByUsername("user");
+        // Verifica se esiste l'utente normale, altrimenti lo crea
+        Optional<AppUser> normalUser = appUserService.findByUsername("user");
         if (normalUser.isEmpty()) {
             Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Ruolo ROLE_USER non trovato"));
@@ -48,6 +52,28 @@ public class AuthRunner implements ApplicationRunner {
                     "User",
                     "user@example.com"
             );
+        }
+    }
+
+    /**
+     * Metodo per inizializzare i ruoli principali (ROLE_ADMIN, ROLE_USER) se non esistono
+     */
+    private void initializeRoles() {
+        createRoleIfNotExists(RoleType.ROLE_ADMIN);
+        createRoleIfNotExists(RoleType.ROLE_USER);
+    }
+
+    /**
+     * Crea un ruolo nel database se non esiste
+     *
+     * @param roleType il tipo di ruolo da verificare/creare
+     */
+    private void createRoleIfNotExists(RoleType roleType) {
+        Optional<Role> role = roleRepository.findByName(roleType);
+        if (role.isEmpty()) {
+            Role newRole = new Role();
+            newRole.setName(roleType);
+            roleRepository.save(newRole);
         }
     }
 }

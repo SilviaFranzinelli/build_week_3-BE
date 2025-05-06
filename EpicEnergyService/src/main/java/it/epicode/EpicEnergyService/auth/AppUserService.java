@@ -4,7 +4,7 @@ import it.epicode.EpicEnergyService.exceptions.ConflictException;
 import it.epicode.EpicEnergyService.exceptions.UnauthorizedException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,7 +48,7 @@ public class AppUserService {
         return save(user);
     }
 
-    public Optional<User> findByUsername(String username) {
+    public Optional<AppUser> findByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
 
@@ -76,7 +76,7 @@ public class AppUserService {
 
     public AppUser save(AppUser appUser) {
         try {
-            return AppUserRepository.save(appUser);
+            return appUserRepository.save(appUser);
         } catch (DataIntegrityViolationException e) {
             System.err.println("Errore nel salvataggio utente: " + e.getMessage());
             throw new ConflictException("Dati duplicati o vincoli violati. Verifica che email e username siano unici.");
