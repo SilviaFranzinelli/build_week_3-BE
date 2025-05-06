@@ -21,7 +21,7 @@ public class ImportController {
     @PostMapping("/province")
     public ResponseEntity<String> importaProvince() {
         try {
-            importService.importaProvinceDaCSV("path/al/file/elenco-province-italiane.csv");
+            importService.importaProvinceDaCSV("src/main/resources/assets/province-italiane.csv");
             return ResponseEntity.ok("Province importate");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore importazione province");
@@ -31,7 +31,7 @@ public class ImportController {
     @PostMapping("/comuni")
     public ResponseEntity<String> importaComuni() {
         try {
-            importService.importaComuniDaCSV("path/al/file/elenco-comuni-italiani.csv");
+            importService.importaComuniDaCSV("src/main/resources/assets/comuni-italiani.csv");
             return ResponseEntity.ok("Comuni importati");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore importazione comuni");
