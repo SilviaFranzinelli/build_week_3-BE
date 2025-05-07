@@ -23,14 +23,14 @@ public class Fattura {
     private LocalDate data;
 
     @Column(nullable = false)
-    private Long importo;
+    private double importo;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Stato stato;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
 }
