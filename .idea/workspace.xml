@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5a6c8fa0-51cb-4c64-8cdd-87d43d65b56e" name="Changes" comment="creazione repository">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/FatturaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/FatturaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EpicEnergyService/target/classes/it/epicode/EpicEnergyService/clienti/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/target/classes/it/epicode/EpicEnergyService/clienti/Cliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/repository/ProvinciaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/repository/ProvinciaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/service/CSVImportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/service/CSVImportService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +54,7 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2wfcq4oyZyWUEEzIlcBb2in2DDd" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -78,12 +78,12 @@
         <env name="CL_KEY" value="659678572995541" />
         <env name="CL_NAME" value="dcbwpbkvq" />
         <env name="CL_SECRET" value="NshqsCcwsKbL_Qe73WHelFTkfRI" />
-        <env name="DB_PSD" value="akobagopassword" />
-        <env name="DB_URL" value="jdbc:postgresql://localhost/epic_energy" />
+        <env name="DB_PSD" value="1AlpacaObeso" />
+        <env name="DB_URL" value="jdbc:postgresql://localhost/epic-energy-service" />
         <env name="DB_USER" value="postgres" />
-        <env name="JWT_SECRET" value="jwt.secret=G7dLkPzS3LmHqT9UwXyIbV28nHjPeR5ZGTRU77891Yht" />
         <env name="MAIL_PWD" value="vdsy katu oxri mlqf" />
         <env name="MAIL_USER" value="alpacaobeso12@gmail.com" />
+        <env name="JWT_SECRET" value="jwt.secret=G7dLkPzS3LmHqT9UwXyIbV28nHjPeR5ZGTRU77891Yht" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="it.epicode.EpicEnergyService.EpicEnergyServiceApplication" />
       <module name="EpicEnergyService" />
@@ -116,7 +116,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746450757634</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="creazione repository">
+      <option name="closed" value="true" />
+      <created>1746628286663</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746628286663</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

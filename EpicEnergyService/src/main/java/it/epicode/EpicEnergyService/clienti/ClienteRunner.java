@@ -34,18 +34,8 @@ public class ClienteRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        importController.importaProvince();
-        importController.importaComuni();
-
-//        Indirizzo indirizzo1 = new Indirizzo();
-//        indirizzo1.setVia("Via Roma");
-//        indirizzo1.setCivico("1");
-//        indirizzo1.setLocalita("Roma");
-//        indirizzo1.setCap("00100");
-//        indirizzo1.setComune(new Comune("Roma", null));
-//        indirizzoService.save(indirizzo1);
-//        System.out.println("------------------------------------------");
-//        System.out.println("Indirizzo salvato con id: " + indirizzo1.getId());
+        csvImportService.importaProvinceDaCSV("EpicEnergyService/src/main/resources/assets/province-italiane.csv");
+        csvImportService.importaComuniDaCSV("EpicEnergyService/src/main/resources/assets/comuni-italiani.csv");
 
         Cliente cliente1 = new Cliente();
         cliente1.setRagioneSociale("Epic Energy");
