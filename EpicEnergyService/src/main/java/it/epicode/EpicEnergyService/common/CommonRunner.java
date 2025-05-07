@@ -38,7 +38,7 @@ public class CommonRunner implements CommandLineRunner {
                 cliente.setTelefonoContatto(faker.phoneNumber().cellPhone());
                 cliente.setDataInserimento(LocalDate.now());
                 cliente.setDataUltimoContatto(LocalDate.now());
-                cliente.setFatturatoAnnuale((double) faker.number().numberBetween(100_000, 10_000_000));
+                cliente.setFatturatoAnnuale((long) faker.number().numberBetween(100_000, 10_000_000));
                 cliente.setLogoAziendale("logo");
                 cliente.setTipoCliente(TipoCliente.PA);
 
