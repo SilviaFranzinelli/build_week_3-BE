@@ -37,4 +37,7 @@ public class ClienteRequest {
     private String logoAziendale;
     @NotNull
     private TipoCliente tipoCliente;
+
+//    private Indirizzo sedeLegale;
+//    private Indirizzo sedeOperativa;
 }
