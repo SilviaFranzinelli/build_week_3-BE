@@ -46,6 +46,7 @@ public class Cliente {
 
     private String logoAziendale;
 
+    @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
 
 //    private Indirizzo sedeLegale;

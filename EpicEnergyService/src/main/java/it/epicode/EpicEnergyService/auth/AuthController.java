@@ -15,27 +15,34 @@ import java.util.Set;
 public class AuthController {
 
     private final AppUserService appUserService;
+    private final RoleRepository roleRepository;
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
+        // Recupera il ruolo ROLE_USER dal database
+        Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Ruolo ROLE_USER non trovato nel database"));
+
+        Set<Role> roles = Set.of(userRole);
+
         appUserService.registerUser(
                 registerRequest.getUsername(),
                 registerRequest.getPassword(),
-                Set.of(Role.ROLE_USER), // Assegna il ruolo di default
+                roles,
                 registerRequest.getNome(),
                 registerRequest.getCognome(),
                 registerRequest.getEmail()
         );
+
         return ResponseEntity.ok("Registrazione avvenuta con successo");
     }
 
-
-        @PostMapping("/login")
-        public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
-            AuthResponse authResponse = appUserService.authenticateUser(
-                    loginRequest.getUsername(),
-                    loginRequest.getPassword()
-            );
-            return ResponseEntity.ok(authResponse);
-        }
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
+        AuthResponse authResponse = appUserService.authenticateUser(
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
+        );
+        return ResponseEntity.ok(authResponse);
     }
+}
