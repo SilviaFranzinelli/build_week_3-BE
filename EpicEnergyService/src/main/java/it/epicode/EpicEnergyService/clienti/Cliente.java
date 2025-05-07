@@ -1,12 +1,15 @@
 package it.epicode.EpicEnergyService.clienti;
 
 import it.epicode.EpicEnergyService.enums.TipoCliente;
+import it.epicode.EpicEnergyService.fatture.Fattura;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -48,4 +51,7 @@ public class Cliente {
 
     @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Fattura> fatture = new ArrayList<>();
 }
