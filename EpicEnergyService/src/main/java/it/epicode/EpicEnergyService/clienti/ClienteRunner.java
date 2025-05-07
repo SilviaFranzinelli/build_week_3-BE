@@ -1,8 +1,11 @@
 package it.epicode.EpicEnergyService.clienti;
 
+import it.epicode.EpicEnergyService.controller.ImportController;
 import it.epicode.EpicEnergyService.model.Comune;
 import it.epicode.EpicEnergyService.model.Indirizzo;
+import it.epicode.EpicEnergyService.model.IndirizzoService;
 import it.epicode.EpicEnergyService.repository.IndirizzoRepository;
+import it.epicode.EpicEnergyService.service.CSVImportService;
 import jakarta.persistence.ManyToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,18 +24,18 @@ public class ClienteRunner implements CommandLineRunner {
     private ClienteService clienteService;
     @Autowired
     private IndirizzoRepository indirizzoRepository;
+    @Autowired
+    IndirizzoService indirizzoService;
+    @Autowired
+    CSVImportService csvImportService;
+    @Autowired
+    private ImportController importController;
 
     @Override
     public void run(String... args) throws Exception {
-//        private Long id;
-//
-//        private String via;
-//        private String civico;
-//        private String localita;
-//        private String cap;
-//
-//        @ManyToOne
-//        private Comune comune;
+
+        importController.importaProvince();
+        importController.importaComuni();
 
 //        Indirizzo indirizzo1 = new Indirizzo();
 //        indirizzo1.setVia("Via Roma");

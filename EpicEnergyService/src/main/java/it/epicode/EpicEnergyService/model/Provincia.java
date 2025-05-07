@@ -1,8 +1,14 @@
 package it.epicode.EpicEnergyService.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
