@@ -54,12 +54,12 @@ public class FatturaController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFattura(@PathVariable Long id){
+    public void deleteFattura(@PathVariable(name = "id") Long id){
         fatturaService.deleteFattura(id);
     }
 
     @PutMapping("/{id}")
-    public void updateFattura(@PathVariable Long id, @RequestBody @Valid FatturaRequest request){
+    public void updateFattura(@PathVariable(name = "id") Long id, @RequestBody @Valid FatturaRequest request){
         fatturaService.updateFattura(id, request);
     }
 
@@ -70,40 +70,40 @@ public class FatturaController {
 //    }
 
     @GetMapping("/{id}")
-    public FatturaResponse findFatturaById(@PathVariable Long id) {
+    public FatturaResponse findFatturaById(@PathVariable(name = "id") Long id) {
         return fatturaService.findFatturaById(id);
     }
 
     @GetMapping
-    public Page<FatturaResponse> getAllFattureSort(@RequestParam(defaultValue = "0") int page,
-                                               @RequestParam(defaultValue = "10") int size,
-                                               @RequestParam(defaultValue = "numero") String sort) {
+    public Page<FatturaResponse> getAllFattureSort(@RequestParam(name = "page", defaultValue = "0") int page,
+                                               @RequestParam(name = "size", defaultValue = "10") int size,
+                                               @RequestParam(name = "sort", defaultValue = "numero") String sort) {
         return fatturaService.getAllFattureSort(page, size, sort);
     }
 
     @GetMapping("/order-by-year")
-    public Page<FatturaResponse> getAllFattureOrderByYear(@RequestParam(defaultValue = "0") int page,
-                                                           @RequestParam(defaultValue = "10") int size) {
+    public Page<FatturaResponse> getAllFattureOrderByYear(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                           @RequestParam(name = "size", defaultValue = "10") int size) {
         return fatturaService.getAllFattureOrderByYear(page, size);
     }
 
     @GetMapping("/importo/range")
-    public Page<FatturaResponse> getAllFattureByImportoBetween(@RequestParam double min,
-                                                                @RequestParam double max,
+    public Page<FatturaResponse> getAllFattureByImportoBetween(@RequestParam("min") double min,
+                                                                @RequestParam("max") double max,
                                                                 @RequestParam(defaultValue = "0") int page,
                                                                 @RequestParam(defaultValue = "10") int size) {
         return fatturaService.getAllFattureByImportoBetween(min, max, page, size);
     }
 
     @GetMapping("/stato")
-    public Page<FatturaResponse> getAllFattureByStato(@RequestParam Stato stato,
-                                                      @RequestParam(defaultValue = "0") int page,
-                                                      @RequestParam(defaultValue = "10") int size) {
+    public Page<FatturaResponse> getAllFattureByStato(@RequestParam(name = "stato" ) Stato stato,
+                                                      @RequestParam(name = "page" ,defaultValue = "0") int page,
+                                                      @RequestParam(name = "size", defaultValue = "10") int size) {
         return fatturaService.getAllFattureByStato(stato, page, size);
     }
 
     @GetMapping("/totale-fatturato/{clienteId}")
-    public double getTotaleFatturatoByClienteId(@PathVariable Long clienteId) {
+    public double getTotaleFatturatoByClienteId(@PathVariable(name = "clienteId") Long clienteId) {
         return fatturaService.getTotaleFatturatoByClienteId(clienteId);
     }
 }
