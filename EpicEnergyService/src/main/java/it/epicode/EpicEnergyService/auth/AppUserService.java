@@ -3,7 +3,8 @@ package it.epicode.EpicEnergyService.auth;
 import it.epicode.EpicEnergyService.exceptions.ConflictException;
 import it.epicode.EpicEnergyService.exceptions.UnauthorizedException;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,27 +18,22 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class AppUserService {
 
-    @Autowired
-    private AppUserRepository appUserRepository;
+    private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public AppUser registerUser(String username, String password, Set<Role> roles,
+                                String nome, String cognome, String email) {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-    public AppUser registerUser(String username, String password, Set<Role> roles, String nome, String cognome, String email) {
-        // Verifica se l'username o l'email esistono già
-        if (appUserRepository.findByUsername(username).isPresent()) {
+        if (appUserRepository.existsByUsername(username)) {
             throw new ConflictException("Username già in uso");
         }
 
-        if (appUserRepository.findByEmail(email).isPresent()) {
+        if (appUserRepository.existsByEmail(email)) {
             throw new ConflictException("Email già in uso");
         }
 
@@ -49,30 +45,28 @@ public class AppUserService {
         user.setCognome(cognome);
         user.setEmail(email);
 
-        return appUserRepository.save(user);
+        return save(user);
     }
 
     public Optional<AppUser> findByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
 
+    public AppUser loadUserByUsername(String username) {
+        return (AppUser) appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Utente non trovato con username: " + username));
+    }
+
     public AuthResponse authenticateUser(String username, String password) {
         try {
-            // Autenticazione con AuthenticationManager
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
 
-            // Recupera i dettagli dell'utente autenticato
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-            // Genera il token JWT
             String token = jwtTokenUtil.generateToken(userDetails);
-
-            // Recupera l'oggetto AppUser dal database
             AppUser user = loadUserByUsername(username);
 
-            // Restituisce il token e l'utente
             return new AuthResponse(token, user);
 
         } catch (AuthenticationException e) {
@@ -80,17 +74,14 @@ public class AppUserService {
         }
     }
 
-    public AppUser loadUserByUsername(String username) {
-        return appUserRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("Utente non trovato con username: " + username));
-    }
-
     public AppUser save(AppUser appUser) {
         try {
             return appUserRepository.save(appUser);
         } catch (DataIntegrityViolationException e) {
-            throw new ConflictException("Dati non validi o duplicati: " + e.getMessage());
+            System.err.println("Errore nel salvataggio utente: " + e.getMessage());
+            throw new ConflictException("Dati duplicati o vincoli violati. Verifica che email e username siano unici.");
+        } catch (Exception e) {
+            throw new RuntimeException("Errore inatteso nel salvataggio utente: " + e.getMessage());
         }
     }
-
 }

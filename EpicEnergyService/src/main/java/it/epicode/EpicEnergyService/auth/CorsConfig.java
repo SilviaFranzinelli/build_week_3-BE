@@ -38,14 +38,14 @@ public class CorsConfig {
 
         @Override
         public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            AppUser appUser = appUserRepository.findByUsername(username)
+            AppUser appUser = (AppUser) appUserRepository.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("Utente non trovato con username: " + username));
 
             return new User(
                     appUser.getUsername(),
                     appUser.getPassword(),
                     appUser.getRoles().stream()
-                            .map(role -> new SimpleGrantedAuthority(role.name()))
+                            .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                             .collect(Collectors.toList())
             );
         }
