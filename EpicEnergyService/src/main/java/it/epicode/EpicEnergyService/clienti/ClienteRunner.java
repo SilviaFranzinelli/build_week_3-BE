@@ -1,5 +1,9 @@
 package it.epicode.EpicEnergyService.clienti;
 
+import it.epicode.EpicEnergyService.model.Comune;
+import it.epicode.EpicEnergyService.model.Indirizzo;
+import it.epicode.EpicEnergyService.repository.IndirizzoRepository;
+import jakarta.persistence.ManyToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,16 +19,38 @@ public class ClienteRunner implements CommandLineRunner {
     private ClienteRepository clienteRepository;
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private IndirizzoRepository indirizzoRepository;
 
     @Override
     public void run(String... args) throws Exception {
+//        private Long id;
+//
+//        private String via;
+//        private String civico;
+//        private String localita;
+//        private String cap;
+//
+//        @ManyToOne
+//        private Comune comune;
+
+//        Indirizzo indirizzo1 = new Indirizzo();
+//        indirizzo1.setVia("Via Roma");
+//        indirizzo1.setCivico("1");
+//        indirizzo1.setLocalita("Roma");
+//        indirizzo1.setCap("00100");
+//        indirizzo1.setComune(new Comune("Roma", null));
+//        indirizzoService.save(indirizzo1);
+//        System.out.println("------------------------------------------");
+//        System.out.println("Indirizzo salvato con id: " + indirizzo1.getId());
+
         Cliente cliente1 = new Cliente();
         cliente1.setRagioneSociale("Epic Energy");
         cliente1.setPartitaIva("12345678901");
         cliente1.setEmail("cM8t2@example.com");
         cliente1.setDataInserimento(LocalDate.now());
         cliente1.setDataUltimoContatto(LocalDate.now());
-        cliente1.setFatturatoAnnuale(700000L);
+        cliente1.setFatturatoAnnuale(45.5);
         cliente1.setPec("cM8t2@example.com");
         cliente1.setTelefono("1234567890");
         cliente1.setEmailContatto("cM8t2@example.com");
@@ -43,7 +69,7 @@ public class ClienteRunner implements CommandLineRunner {
         cliente2.setEmail("pizza@example.com");
         cliente2.setDataInserimento(LocalDate.of(2023, 1, 1));
         cliente2.setDataUltimoContatto(LocalDate.of(2024, 1, 1));
-        cliente2.setFatturatoAnnuale(100000L);
+        cliente2.setFatturatoAnnuale(700000.0);
         cliente2.setPec("pizza@example.com");
         cliente2.setTelefono("1234567890");
         cliente2.setEmailContatto("pizza@example.com");

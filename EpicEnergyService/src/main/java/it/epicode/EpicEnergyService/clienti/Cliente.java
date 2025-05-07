@@ -33,7 +33,7 @@ public class Cliente {
     @Column(nullable = false)
     private LocalDate dataUltimoContatto;
     @Column(nullable = false)
-    private Long fatturatoAnnuale;
+    private Double fatturatoAnnuale;
     @Column(nullable = false, length = 100)
     private String pec;
     @Column(nullable = false, length = 100)
