@@ -1,0 +1,57 @@
+Index: EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/Fattura.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/Fattura.java b/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/Fattura.java
+new file mode 100644
+--- /dev/null	(date 1746442078714)
++++ b/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/Fattura.java	(date 1746442078714)
+@@ -0,0 +1,4 @@
++package it.epicode.EpicEnergyService.fatture;
++
++public class Fattura {
++}
+Index: .idea/aws.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/aws.xml b/.idea/aws.xml
+new file mode 100644
+--- /dev/null	(date 1746442078728)
++++ b/.idea/aws.xml	(date 1746442078728)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="accountSettings">
++    <option name="activeRegion" value="us-east-1" />
++    <option name="recentlyUsedRegions">
++      <list>
++        <option value="us-east-1" />
++      </list>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/material_theme_project_new.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/material_theme_project_new.xml b/.idea/material_theme_project_new.xml
+new file mode 100644
+--- /dev/null	(date 1746442078700)
++++ b/.idea/material_theme_project_new.xml	(date 1746442078700)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="MaterialThemeProjectNewConfig">
++    <option name="metadata">
++      <MTProjectMetadataState>
++        <option name="userId" value="183cbb75:1969f9888a6:-7f9c" />
++      </MTProjectMetadataState>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
