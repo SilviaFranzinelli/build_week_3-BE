@@ -23,4 +23,7 @@ public class ClienteResponse {
     private String telefonoContatto;
     private String logoAziendale;
     private TipoCliente tipoCliente;
+
+//    private Indirizzo sedeLegale;
+//    private Indirizzo sedeOperativa;
 }
