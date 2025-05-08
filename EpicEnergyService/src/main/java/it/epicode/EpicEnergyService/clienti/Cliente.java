@@ -2,11 +2,13 @@ package it.epicode.EpicEnergyService.clienti;
 
 import it.epicode.EpicEnergyService.enums.TipoCliente;
 import it.epicode.EpicEnergyService.fatture.Fattura;
+import it.epicode.EpicEnergyService.fatture.FatturaRepository;
 import it.epicode.EpicEnergyService.model.Indirizzo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

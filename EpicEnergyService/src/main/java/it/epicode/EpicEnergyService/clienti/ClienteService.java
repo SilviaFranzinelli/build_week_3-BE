@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -192,6 +193,138 @@ public class ClienteService {
         Pageable pageable = PageRequest.of(0, 20, Sort.by("sedeLegale.comune.provincia"));
 
         Page<Cliente> clienti = clienteRepository.findAll(pageable);
+
+        return clienti.map(cliente -> new ClienteResponse(
+                cliente.getId(),
+                cliente.getRagioneSociale(),
+                cliente.getPartitaIva(),
+                cliente.getEmail(),
+                cliente.getDataInserimento(),
+                cliente.getDataUltimoContatto(),
+                cliente.getFatturatoAnnuale(),
+                cliente.getPec(),
+                cliente.getTelefono(),
+                cliente.getEmailContatto(),
+                cliente.getNomeContatto(),
+                cliente.getCognomeContatto(),
+                cliente.getTelefonoContatto(),
+                cliente.getLogoAziendale(),
+                cliente.getTipoCliente(),
+                cliente.getFatture().stream()
+                        .map(fattura -> new FatturaResponse(
+                                fattura.getNumero(),
+                                fattura.getData(),
+                                fattura.getImporto(),
+                                fattura.getStato(),
+                                fattura.getCliente().getId()))
+                        .toList(),
+                cliente.getSedeLegale(),
+                cliente.getSedeOperativa()
+        ));
+    }
+
+    public Page<ClienteResponse> findAllByFatturatoAnnuale(int page, int size, double fatturatoAnnuale) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Cliente> clienti = clienteRepository.findAllByFatturatoAnnuale(fatturatoAnnuale, pageable);
+
+        return clienti.map(cliente -> new ClienteResponse(
+                cliente.getId(),
+                cliente.getRagioneSociale(),
+                cliente.getPartitaIva(),
+                cliente.getEmail(),
+                cliente.getDataInserimento(),
+                cliente.getDataUltimoContatto(),
+                cliente.getFatturatoAnnuale(),
+                cliente.getPec(),
+                cliente.getTelefono(),
+                cliente.getEmailContatto(),
+                cliente.getNomeContatto(),
+                cliente.getCognomeContatto(),
+                cliente.getTelefonoContatto(),
+                cliente.getLogoAziendale(),
+                cliente.getTipoCliente(),
+                cliente.getFatture().stream()
+                        .map(fattura -> new FatturaResponse(
+                                fattura.getNumero(),
+                                fattura.getData(),
+                                fattura.getImporto(),
+                                fattura.getStato(),
+                                fattura.getCliente().getId()))
+                        .toList(),
+                cliente.getSedeLegale(),
+                cliente.getSedeOperativa()
+        ));
+    }
+    public Page<ClienteResponse> findAllByDataInserimento(int page, int size, LocalDate dataInserimento) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Cliente> clienti = clienteRepository.findAllByDataInserimento(dataInserimento, pageable);
+
+        return clienti.map(cliente -> new ClienteResponse(
+                cliente.getId(),
+                cliente.getRagioneSociale(),
+                cliente.getPartitaIva(),
+                cliente.getEmail(),
+                cliente.getDataInserimento(),
+                cliente.getDataUltimoContatto(),
+                cliente.getFatturatoAnnuale(),
+                cliente.getPec(),
+                cliente.getTelefono(),
+                cliente.getEmailContatto(),
+                cliente.getNomeContatto(),
+                cliente.getCognomeContatto(),
+                cliente.getTelefonoContatto(),
+                cliente.getLogoAziendale(),
+                cliente.getTipoCliente(),
+                cliente.getFatture().stream()
+                        .map(fattura -> new FatturaResponse(
+                                fattura.getNumero(),
+                                fattura.getData(),
+                                fattura.getImporto(),
+                                fattura.getStato(),
+                                fattura.getCliente().getId()))
+                        .toList(),
+                cliente.getSedeLegale(),
+                cliente.getSedeOperativa()
+        ));
+    }
+
+    public Page<ClienteResponse> findAllByDataUltimoContatto(int page, int size, LocalDate dataInserimento) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Cliente> clienti = clienteRepository.findAllByDataUltimoContatto(dataInserimento, pageable);
+
+        return clienti.map(cliente -> new ClienteResponse(
+                cliente.getId(),
+                cliente.getRagioneSociale(),
+                cliente.getPartitaIva(),
+                cliente.getEmail(),
+                cliente.getDataInserimento(),
+                cliente.getDataUltimoContatto(),
+                cliente.getFatturatoAnnuale(),
+                cliente.getPec(),
+                cliente.getTelefono(),
+                cliente.getEmailContatto(),
+                cliente.getNomeContatto(),
+                cliente.getCognomeContatto(),
+                cliente.getTelefonoContatto(),
+                cliente.getLogoAziendale(),
+                cliente.getTipoCliente(),
+                cliente.getFatture().stream()
+                        .map(fattura -> new FatturaResponse(
+                                fattura.getNumero(),
+                                fattura.getData(),
+                                fattura.getImporto(),
+                                fattura.getStato(),
+                                fattura.getCliente().getId()))
+                        .toList(),
+                cliente.getSedeLegale(),
+                cliente.getSedeOperativa()
+        ));
+    }
+
+    public Page<ClienteResponse> findNomeContattoLike(int page, int size, String nomeContatto){
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Cliente> clienti = clienteRepository.findNomeContattoLike(nomeContatto, pageable);
 
         return clienti.map(cliente -> new ClienteResponse(
                 cliente.getId(),
