@@ -184,4 +184,41 @@ public class ClienteService {
         BeanUtils.copyProperties(cliente, cliente1);
         clienteRepository.save(cliente1);
     }
+
+    public Page<ClienteResponse> SortByProvincia(int page, int size, String sortBy) {
+
+
+
+        Pageable pageable = PageRequest.of(0, 20, Sort.by("sedeLegale.comune.provincia"));
+
+        Page<Cliente> clienti = clienteRepository.findAll(pageable);
+
+        return clienti.map(cliente -> new ClienteResponse(
+                cliente.getId(),
+                cliente.getRagioneSociale(),
+                cliente.getPartitaIva(),
+                cliente.getEmail(),
+                cliente.getDataInserimento(),
+                cliente.getDataUltimoContatto(),
+                cliente.getFatturatoAnnuale(),
+                cliente.getPec(),
+                cliente.getTelefono(),
+                cliente.getEmailContatto(),
+                cliente.getNomeContatto(),
+                cliente.getCognomeContatto(),
+                cliente.getTelefonoContatto(),
+                cliente.getLogoAziendale(),
+                cliente.getTipoCliente(),
+                cliente.getFatture().stream()
+                        .map(fattura -> new FatturaResponse(
+                                fattura.getNumero(),
+                                fattura.getData(),
+                                fattura.getImporto(),
+                                fattura.getStato(),
+                                fattura.getCliente().getId()))
+                        .toList(),
+                cliente.getSedeLegale(),
+                cliente.getSedeOperativa()
+        ));
+    }
 }

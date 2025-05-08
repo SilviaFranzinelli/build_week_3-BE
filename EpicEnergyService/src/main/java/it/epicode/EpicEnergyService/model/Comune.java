@@ -17,7 +17,4 @@ public class Comune {
 
     @ManyToOne
     private Provincia provincia;
-
-    public Comune(String nomeComune, Provincia provincia) {
-    }
 }

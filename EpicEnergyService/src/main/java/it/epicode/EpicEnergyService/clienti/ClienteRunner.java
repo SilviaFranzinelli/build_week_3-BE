@@ -46,13 +46,13 @@ public class ClienteRunner implements CommandLineRunner {
         Indirizzo indirizzo1 = new Indirizzo();
         indirizzo1.setVia("Via Roma");
         indirizzo1.setCivico("12");
-        indirizzo1.setComune(comuneRepository.findById(1L).get());
+        indirizzo1.setComune(comuneRepository.findById(2L).get());
         indirizzoRepository.save(indirizzo1);
 
         Indirizzo indirizzo2 = new Indirizzo();
         indirizzo2.setVia("Via Milano");
         indirizzo2.setCivico("34");
-        indirizzo2.setComune(comuneRepository.findById(2L).get());
+        indirizzo2.setComune(comuneRepository.findById(329L).get());
         indirizzoRepository.save(indirizzo2);
 
         Cliente cliente1 = new Cliente();

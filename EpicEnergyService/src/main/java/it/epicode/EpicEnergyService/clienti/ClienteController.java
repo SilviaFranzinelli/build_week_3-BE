@@ -40,4 +40,11 @@ public class ClienteController {
     public void delete(@PathVariable(name = "id") Long id) throws Exception {
         clienteService.delete(id);
     }
+
+    @GetMapping("/provincia")
+    public Page<ClienteResponse> SortByProvincia(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                 @RequestParam (name = "size", defaultValue = "20") int size,
+                                                 @RequestParam(name = "sort", defaultValue = "Provincia") String sortBy) {
+        return clienteService.SortByProvincia(page, size, sortBy);
+    }
 }
