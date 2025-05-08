@@ -28,6 +28,6 @@ public class AppUser {
     private String cognome;
     private String avatar;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 }

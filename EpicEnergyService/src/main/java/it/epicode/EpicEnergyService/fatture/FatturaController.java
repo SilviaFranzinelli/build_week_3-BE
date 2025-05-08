@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/fatture")
+@RequestMapping("/api/fatture")
 @Validated
 public class FatturaController {
 

@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -54,14 +56,14 @@ public class ClienteService {
                 cliente.getTelefonoContatto(),
                 cliente.getLogoAziendale(),
                 cliente.getTipoCliente(),
-                cliente.getFatture().stream()
+                cliente.getFatture() !=null ? cliente.getFatture().stream()
                         .map(fattura -> new FatturaResponse(
                                 fattura.getNumero(),
                                 fattura.getData(),
                                 fattura.getImporto(),
                                 fattura.getStato(),
                                 fattura.getCliente().getId()))
-                        .toList(),
+                        .collect(Collectors.toList()) : Collections.emptyList(),
                 cliente.getSedeLegale(),
                 cliente.getSedeOperativa()
                 ));

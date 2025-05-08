@@ -17,7 +17,7 @@ public class ClienteController {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    @GetMapping("")
+    @GetMapping
     public Page<ClienteResponse> getClienti(@RequestParam(name = "page",defaultValue = "0") int page,
                                     @RequestParam (name = "size", defaultValue = "20") int size,
                                     @RequestParam( name = "sort", defaultValue = "id") String sortBy) {
@@ -29,7 +29,7 @@ public class ClienteController {
         return clienteService.findById(id);
     }
 
-    @PostMapping("")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CommonResponse save(@RequestBody ClienteRequest request) throws Exception {
         return clienteService.save(request);

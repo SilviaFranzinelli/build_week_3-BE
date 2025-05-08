@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a6c8fa0-51cb-4c64-8cdd-87d43d65b56e" name="Changes" comment="Aggiunto metodo di sort in base alle province per la classe Cliente">
+    <list default="true" id="5a6c8fa0-51cb-4c64-8cdd-87d43d65b56e" name="Changes" comment="Implementate le custom query, fungono ed allelujah!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/auth/AppUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/auth/AppUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EpicEnergyService/target/classes/it/epicode/EpicEnergyService/clienti/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/target/classes/it/epicode/EpicEnergyService/clienti/Cliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/FatturaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/FatturaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/target/classes/it/epicode/EpicEnergyService/auth/AppUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/target/classes/it/epicode/EpicEnergyService/auth/AppUser.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +84,7 @@
         <env name="DB_PSD" value="akobagopassword" />
         <env name="DB_URL" value="jdbc:postgresql://localhost/epic_energy" />
         <env name="DB_USER" value="postgres" />
-        <env name="JWT_SECRET" value="jwt.secret=G7dLkPzS3LmHqT9UwXyIbV28nHjPeR5ZGTRU77891Yht" />
+        <env name="JWT_SECRET" value="G7dLkPzS3LmHqT9UwXyIbV28nHjPeR5ZGTRU77891Yht" />
         <env name="MAIL_PWD" value="vdsy katu oxri mlqf" />
         <env name="MAIL_USER" value="alpacaobeso12@gmail.com" />
       </envs>
@@ -160,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746713409587</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Implementate le custom query, fungono ed allelujah!">
+      <option name="closed" value="true" />
+      <created>1746719599841</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746719599842</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -193,6 +201,7 @@
     <MESSAGE value="sistemati DTO della classe Cliente e Cliente Service. Da completare, ora andiamo a mangiare :3" />
     <MESSAGE value="Aggiunto FatturaRunner per la creazione di fatture, modifica metodo di creazione cliente." />
     <MESSAGE value="Aggiunto metodo di sort in base alle province per la classe Cliente" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiunto metodo di sort in base alle province per la classe Cliente" />
+    <MESSAGE value="Implementate le custom query, fungono ed allelujah!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementate le custom query, fungono ed allelujah!" />
   </component>
 </project>
