@@ -10,6 +10,7 @@ import it.epicode.EpicEnergyService.service.CSVImportService;
 import jakarta.persistence.ManyToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import static it.epicode.EpicEnergyService.enums.TipoCliente.PA;
 import static it.epicode.EpicEnergyService.enums.TipoCliente.SPA;
 
 @Component
+@Order(1)
 public class ClienteRunner implements CommandLineRunner {
     @Autowired
     private ClienteRepository clienteRepository;
@@ -69,7 +71,7 @@ public class ClienteRunner implements CommandLineRunner {
         cliente1.setLogoAziendale("logo.png");
         cliente1.setTipoCliente(PA);
         cliente1.setSedeLegale(indirizzo2);
-        clienteService.save(cliente1);
+        clienteRepository.save(cliente1);
         System.out.println("------------------------------------------");
         System.out.println("Cliente salvato con id: " + cliente1.getId());
 
@@ -89,7 +91,7 @@ public class ClienteRunner implements CommandLineRunner {
         cliente2.setLogoAziendale("logo.png");
         cliente2.setTipoCliente(SPA);
         cliente2.setSedeLegale(indirizzo1);
-        clienteService.save(cliente2);
+        clienteRepository.save(cliente2);
         System.out.println("------------------------------------------");
         System.out.println("Cliente salvato con id: " + cliente2.getId());
     }

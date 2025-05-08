@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a6c8fa0-51cb-4c64-8cdd-87d43d65b56e" name="Changes" comment="creazione repository">
-      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteRequest.java" afterDir="false" />
+    <list default="true" id="5a6c8fa0-51cb-4c64-8cdd-87d43d65b56e" name="Changes" comment="sistemati DTO della classe Cliente e Cliente Service. Da completare, ora andiamo a mangiare :3">
+      <change afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/fatture/FatturaRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/clienti/ClienteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/common/CommonRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/EpicEnergyService/src/main/java/it/epicode/EpicEnergyService/common/CommonRunner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Repository" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -132,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746635108816</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="sistemati DTO della classe Cliente e Cliente Service. Da completare, ora andiamo a mangiare :3">
+      <option name="closed" value="true" />
+      <created>1746702619568</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746702619568</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -162,6 +174,7 @@
     <MESSAGE value="creazione classe fattura &amp; piccola modifica classe cliente" />
     <MESSAGE value="creazione repository" />
     <MESSAGE value="sistemato controller fattura - teoricamente funziona chiamate CRUD. Modificato tipo variabile totale fatturato della classe cliente." />
-    <option name="LAST_COMMIT_MESSAGE" value="sistemato controller fattura - teoricamente funziona chiamate CRUD. Modificato tipo variabile totale fatturato della classe cliente." />
+    <MESSAGE value="sistemati DTO della classe Cliente e Cliente Service. Da completare, ora andiamo a mangiare :3" />
+    <option name="LAST_COMMIT_MESSAGE" value="sistemati DTO della classe Cliente e Cliente Service. Da completare, ora andiamo a mangiare :3" />
   </component>
 </project>

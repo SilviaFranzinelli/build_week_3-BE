@@ -12,7 +12,6 @@ import org.springframework.core.annotation.Order;
 import java.time.LocalDate;
 
 @Configuration
-@Order(1)
 public class CommonRunner implements CommandLineRunner {
 
     @Autowired

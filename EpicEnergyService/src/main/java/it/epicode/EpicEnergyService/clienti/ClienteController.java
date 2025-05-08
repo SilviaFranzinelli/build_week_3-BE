@@ -1,5 +1,6 @@
 package it.epicode.EpicEnergyService.clienti;
 
+import it.epicode.EpicEnergyService.common.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -12,26 +13,26 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping("")
-    public Page<Cliente> getClienti(@RequestParam(defaultValue = "0") int page,
-                                    @RequestParam (defaultValue = "20") int size,
-                                    @RequestParam(defaultValue = "id") String sortBy) {
+    public Page<ClienteResponse> getClienti(@RequestParam(name = "page",defaultValue = "0") int page,
+                                    @RequestParam (name = "size", defaultValue = "20") int size,
+                                    @RequestParam( name = "sort", defaultValue = "id") String sortBy) {
         return clienteService.getClienti(page, size, sortBy);
     }
 
     @GetMapping("/{id}")
-    public Cliente getCliente(@PathVariable(name = "id") Long id) {
+    public ClienteResponse getCliente(@PathVariable(name = "id") Long id) {
         return clienteService.findById(id);
     }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente save(@RequestBody Cliente cliente) throws Exception {
-        return clienteService.save(cliente);
+    public CommonResponse save(@RequestBody ClienteRequest request) throws Exception {
+        return clienteService.save(request);
     }
 
     @PutMapping("/{id}")
-    public Cliente update(@PathVariable(name = "id") Long id, @RequestBody Cliente cliente) throws Exception {
-        return clienteService.update(id, cliente);
+    public void update(@PathVariable(name = "id") Long id, @RequestBody ClienteRequest cliente) throws Exception {
+        clienteService.update(id, cliente);
     }
 
     @DeleteMapping("/{id}")

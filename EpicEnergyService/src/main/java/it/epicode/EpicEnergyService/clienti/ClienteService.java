@@ -1,5 +1,6 @@
 package it.epicode.EpicEnergyService.clienti;
 
+import it.epicode.EpicEnergyService.common.CommonResponse;
 import it.epicode.EpicEnergyService.exceptions.ResourceNotFoundException;
 import it.epicode.EpicEnergyService.fatture.Fattura;
 import it.epicode.EpicEnergyService.fatture.FatturaRepository;
@@ -65,13 +66,8 @@ public class ClienteService {
                 ));
     }
 
-    public Cliente findById(Long id) {
-        return clienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Non esiste nessun cliente con id: " + id));
-    }
-
-    public ClienteResponse findByIdResponse(Long id) {
-        Cliente cliente = clienteRepository
-                .findById(id)
+    public ClienteResponse findById(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Non esiste nessun cliente con id: " + id));
 
         return new ClienteResponse(
@@ -102,8 +98,7 @@ public class ClienteService {
                 cliente.getSedeOperativa()
         );
     }
-
-    public ClienteResponse save(ClienteRequest request) {
+    public CommonResponse save(ClienteRequest request) {
         Cliente cliente = new Cliente();
         cliente.setRagioneSociale(request.getRagioneSociale());
         cliente.setPartitaIva(request.getPartitaIva());
@@ -170,18 +165,23 @@ public class ClienteService {
         response.setSedeLegale(clienteSalvato.getSedeLegale());
         response.setSedeOperativa(clienteSalvato.getSedeOperativa());
 
-        return response;
+        return new CommonResponse(response.getId());
 
     }
 
     public void delete(Long id) {
-        Cliente found = findById(id);
-        clienteRepository.delete(found);
+
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Non esiste nessun cliente con id: " + id));
+
+        clienteRepository.delete(cliente);
     }
 
-    public Cliente update(Long id, Cliente cliente) {
-        Cliente found = findById(id);
-        BeanUtils.copyProperties(cliente, found, "id");
-        return clienteRepository.save(found);
+    public void update(Long id, ClienteRequest cliente) {
+        Cliente cliente1 = clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Non esiste nessun cliente con id: " + id));
+
+        BeanUtils.copyProperties(cliente, cliente1);
+        clienteRepository.save(cliente1);
     }
 }
