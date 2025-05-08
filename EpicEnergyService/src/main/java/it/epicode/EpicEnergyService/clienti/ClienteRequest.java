@@ -1,6 +1,7 @@
 package it.epicode.EpicEnergyService.clienti;
 
 import it.epicode.EpicEnergyService.enums.TipoCliente;
+import it.epicode.EpicEnergyService.fatture.FatturaResponse;
 import it.epicode.EpicEnergyService.model.Indirizzo;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
@@ -44,8 +45,9 @@ public class ClienteRequest {
     @NotNull
     private TipoCliente tipoCliente;
 
-    private List<Long> fattureId    ;
+    private List<Long> fattureId;
 
+    @NotNull
     private Long sedeLegaleId;
     private Long sedeOperativaId;
 }

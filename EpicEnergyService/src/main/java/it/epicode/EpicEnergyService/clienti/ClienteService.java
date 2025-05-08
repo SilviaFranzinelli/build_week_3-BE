@@ -2,7 +2,10 @@ package it.epicode.EpicEnergyService.clienti;
 
 import it.epicode.EpicEnergyService.exceptions.ResourceNotFoundException;
 import it.epicode.EpicEnergyService.fatture.Fattura;
+import it.epicode.EpicEnergyService.fatture.FatturaRepository;
 import it.epicode.EpicEnergyService.fatture.FatturaResponse;
+import it.epicode.EpicEnergyService.model.Indirizzo;
+import it.epicode.EpicEnergyService.repository.IndirizzoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +17,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 @Service
 @Validated
 @RequiredArgsConstructor
 public class ClienteService {
     @Autowired
     private final ClienteRepository clienteRepository;
+
+    @Autowired
+    private FatturaRepository fatturaRepository;
+
+    @Autowired
+    private IndirizzoRepository indirizzoRepository;
 
     public Page<ClienteResponse> getClienti(int page, int size, String sort) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
@@ -41,7 +52,14 @@ public class ClienteService {
                 cliente.getTelefonoContatto(),
                 cliente.getLogoAziendale(),
                 cliente.getTipoCliente(),
-                cliente.getFatture(),
+                cliente.getFatture().stream()
+                        .map(fattura -> new FatturaResponse(
+                                fattura.getNumero(),
+                                fattura.getData(),
+                                fattura.getImporto(),
+                                fattura.getStato(),
+                                fattura.getCliente().getId()))
+                        .toList(),
                 cliente.getSedeLegale(),
                 cliente.getSedeOperativa()
                 ));
@@ -72,7 +90,14 @@ public class ClienteService {
                 cliente.getTelefonoContatto(),
                 cliente.getLogoAziendale(),
                 cliente.getTipoCliente(),
-                cliente.getFatture(),
+                cliente.getFatture().stream()
+                        .map(fattura -> new FatturaResponse(
+                                fattura.getNumero(),
+                                fattura.getData(),
+                                fattura.getImporto(),
+                                fattura.getStato(),
+                                fattura.getCliente().getId()))
+                        .toList(),
                 cliente.getSedeLegale(),
                 cliente.getSedeOperativa()
         );
@@ -94,9 +119,59 @@ public class ClienteService {
         cliente.setTelefonoContatto(request.getTelefonoContatto());
         cliente.setLogoAziendale(request.getLogoAziendale());
         cliente.setTipoCliente(request.getTipoCliente());
-        cliente.setFatture(request.getFattureId().stream().map(fattura -> new FatturaResponse(fattura.getNumero(), fattura.getData(), fattura.getImporto(), fattura.getStato(), fattura.getClienteId())).toList());
-        cliente.setSedeLegale(request.getSedeLegale());
-        cliente.setSedeOperativa(request.getSedeOperativa());
+
+
+        List<Fattura> fatture = request.getFattureId().stream().map(id -> fatturaRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Non esiste nessuna fattura con id: " + id))).toList();
+        cliente.setFatture(fatture);
+
+        Indirizzo sedeLegale = indirizzoRepository.findById(request
+                .getSedeLegaleId())
+                .orElseThrow(() -> new ResourceNotFoundException("Non esiste nessun indirizzo con id: " + request.getSedeLegaleId()));
+
+        cliente.setSedeLegale(sedeLegale);
+
+        Indirizzo sedeOperativa = indirizzoRepository.findById(request
+                .getSedeOperativaId())
+                .orElse(null);
+
+        cliente.setSedeOperativa(sedeOperativa);
+
+        Cliente clienteSalvato = clienteRepository.save(cliente);
+
+        ClienteResponse response = new ClienteResponse();
+        response.setId(clienteSalvato.getId());
+        response.setRagioneSociale(clienteSalvato.getRagioneSociale());
+        response.setPartitaIva(clienteSalvato.getPartitaIva());
+        response.setEmail(clienteSalvato.getEmail());
+        response.setDataInserimento(clienteSalvato.getDataInserimento());
+        response.setDataUltimoContatto(clienteSalvato.getDataUltimoContatto());
+        response.setFatturatoAnnuale(clienteSalvato.getFatturatoAnnuale());
+        response.setPec(clienteSalvato.getPec());
+        response.setTelefono(clienteSalvato.getTelefono());
+        response.setEmailContatto(clienteSalvato.getEmailContatto());
+        response.setNomeContatto(clienteSalvato.getNomeContatto());
+        response.setCognomeContatto(clienteSalvato.getCognomeContatto());
+        response.setTelefonoContatto(clienteSalvato.getTelefonoContatto());
+        response.setLogoAziendale(clienteSalvato.getLogoAziendale());
+        response.setTipoCliente(clienteSalvato.getTipoCliente());
+
+        response.setFatture(clienteSalvato.getFatture().stream()
+                .map(f -> new FatturaResponse(
+                f.getNumero(),
+                f.getData(),
+                f.getImporto(),
+                f.getStato(),
+                f.getCliente().getId()))
+                .toList()
+        );
+
+        response.setSedeLegale(clienteSalvato.getSedeLegale());
+        response.setSedeOperativa(clienteSalvato.getSedeOperativa());
+
+        return response;
+
     }
 
     public void delete(Long id) {
