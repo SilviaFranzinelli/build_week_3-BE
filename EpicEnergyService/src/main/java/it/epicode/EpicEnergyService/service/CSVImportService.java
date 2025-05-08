@@ -27,8 +27,8 @@ public class CSVImportService {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] dati = line.split(";");
-                String nome = dati[0].trim();
-                String sigla = dati[1].trim();
+                String nome = dati[1].trim();
+                String sigla = dati[0].trim();
                 if (provinciaRepository.findByNomeAndSigla(nome, sigla).isEmpty()) {
                     Provincia provincia = new Provincia();
                     provincia.setNome(nome);

@@ -11,13 +11,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "indirizzi")
 public class Indirizzo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String via;
     private String civico;
-    private String localita;
-    private String cap;
 
     @ManyToOne
     private Comune comune;

@@ -1,12 +1,20 @@
 package it.epicode.EpicEnergyService.clienti;
 
 import it.epicode.EpicEnergyService.enums.TipoCliente;
+import it.epicode.EpicEnergyService.fatture.Fattura;
+import it.epicode.EpicEnergyService.fatture.FatturaResponse;
+import it.epicode.EpicEnergyService.model.Indirizzo;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClienteResponse {
     private Long id;
     private String ragioneSociale;
@@ -14,7 +22,7 @@ public class ClienteResponse {
     private String email;
     private LocalDate dataInserimento;
     private LocalDate dataUltimoContatto;
-    private Long fatturatoAnnuale;
+    private double fatturatoAnnuale;
     private String pec;
     private String telefono;
     private String emailContatto;
@@ -24,6 +32,8 @@ public class ClienteResponse {
     private String logoAziendale;
     private TipoCliente tipoCliente;
 
-//    private Indirizzo sedeLegale;
-//    private Indirizzo sedeOperativa;
+    private List<FatturaResponse> fatture;
+
+    private Indirizzo sedeLegale;
+    private Indirizzo sedeOperativa;
 }

@@ -2,6 +2,7 @@ package it.epicode.EpicEnergyService.clienti;
 
 import it.epicode.EpicEnergyService.enums.TipoCliente;
 import it.epicode.EpicEnergyService.fatture.Fattura;
+import it.epicode.EpicEnergyService.model.Indirizzo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -54,4 +55,9 @@ public class Cliente {
 
     @OneToMany(mappedBy = "cliente")
     private List<Fattura> fatture = new ArrayList<>();
+
+    @OneToOne
+    private Indirizzo sedeOperativa;
+    @OneToOne
+    private Indirizzo sedeLegale;
 }

@@ -4,6 +4,7 @@ import it.epicode.EpicEnergyService.controller.ImportController;
 import it.epicode.EpicEnergyService.model.Comune;
 import it.epicode.EpicEnergyService.model.Indirizzo;
 import it.epicode.EpicEnergyService.model.IndirizzoService;
+import it.epicode.EpicEnergyService.repository.ComuneRepository;
 import it.epicode.EpicEnergyService.repository.IndirizzoRepository;
 import it.epicode.EpicEnergyService.service.CSVImportService;
 import jakarta.persistence.ManyToOne;
@@ -30,12 +31,27 @@ public class ClienteRunner implements CommandLineRunner {
     CSVImportService csvImportService;
     @Autowired
     private ImportController importController;
+    @Autowired
+    private ComuneRepository comuneRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
 
         csvImportService.importaProvinceDaCSV("EpicEnergyService/src/main/resources/assets/province-italiane.csv");
         csvImportService.importaComuniDaCSV("EpicEnergyService/src/main/resources/assets/comuni-italiani.csv");
+
+        Indirizzo indirizzo1 = new Indirizzo();
+        indirizzo1.setVia("Via Roma");
+        indirizzo1.setCivico("12");
+        indirizzo1.setComune(comuneRepository.findById(1L).get());
+        indirizzoRepository.save(indirizzo1);
+
+        Indirizzo indirizzo2 = new Indirizzo();
+        indirizzo2.setVia("Via Milano");
+        indirizzo2.setCivico("34");
+        indirizzo2.setComune(comuneRepository.findById(2L).get());
+        indirizzoRepository.save(indirizzo2);
 
         Cliente cliente1 = new Cliente();
         cliente1.setRagioneSociale("Epic Energy");
@@ -52,6 +68,7 @@ public class ClienteRunner implements CommandLineRunner {
         cliente1.setTelefonoContatto("1234567890");
         cliente1.setLogoAziendale("logo.png");
         cliente1.setTipoCliente(PA);
+        cliente1.setSedeLegale(indirizzo2);
         clienteService.save(cliente1);
         System.out.println("------------------------------------------");
         System.out.println("Cliente salvato con id: " + cliente1.getId());
@@ -71,6 +88,7 @@ public class ClienteRunner implements CommandLineRunner {
         cliente2.setTelefonoContatto("1234567890");
         cliente2.setLogoAziendale("logo.png");
         cliente2.setTipoCliente(SPA);
+        cliente2.setSedeLegale(indirizzo1);
         clienteService.save(cliente2);
         System.out.println("------------------------------------------");
         System.out.println("Cliente salvato con id: " + cliente2.getId());

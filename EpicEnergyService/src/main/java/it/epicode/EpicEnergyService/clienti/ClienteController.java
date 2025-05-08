@@ -19,7 +19,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public Cliente getCliente(@PathVariable Long id) {
+    public Cliente getCliente(@PathVariable(name = "id") Long id) {
         return clienteService.findById(id);
     }
 
@@ -30,13 +30,13 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public Cliente update(@PathVariable Long id, @RequestBody Cliente cliente) throws Exception {
+    public Cliente update(@PathVariable(name = "id") Long id, @RequestBody Cliente cliente) throws Exception {
         return clienteService.update(id, cliente);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) throws Exception {
+    public void delete(@PathVariable(name = "id") Long id) throws Exception {
         clienteService.delete(id);
     }
 }
