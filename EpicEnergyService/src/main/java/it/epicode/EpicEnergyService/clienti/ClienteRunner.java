@@ -55,6 +55,12 @@ public class ClienteRunner implements CommandLineRunner {
         indirizzo2.setComune(comuneRepository.findById(329L).get());
         indirizzoRepository.save(indirizzo2);
 
+        Indirizzo indirizzo3 = new Indirizzo();
+        indirizzo3.setVia("Via Napoli");
+        indirizzo3.setCivico("56");
+        indirizzo3.setComune(comuneRepository.findById(450L).get());
+        indirizzoRepository.save(indirizzo3);
+
         Cliente cliente1 = new Cliente();
         cliente1.setRagioneSociale("Epic Energy");
         cliente1.setPartitaIva("12345678901");

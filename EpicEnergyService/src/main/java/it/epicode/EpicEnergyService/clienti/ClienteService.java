@@ -121,7 +121,7 @@ public class ClienteService {
 
         List<Fattura> fatture = request.getFattureId().stream().map(id -> fatturaRepository
                 .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Non esiste nessuna fattura con id: " + id))).toList();
+                .orElse(null)).toList();
         cliente.setFatture(fatture);
 
         Indirizzo sedeLegale = indirizzoRepository.findById(request

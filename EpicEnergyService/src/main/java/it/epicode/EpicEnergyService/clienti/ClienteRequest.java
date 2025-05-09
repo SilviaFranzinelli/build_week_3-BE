@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -45,7 +46,7 @@ public class ClienteRequest {
     @NotNull
     private TipoCliente tipoCliente;
 
-    private List<Long> fattureId;
+    private List<Long> fattureId = new ArrayList<>();
 
     @NotNull
     private Long sedeLegaleId;
