@@ -1,6 +1,7 @@
 package it.epicode.EpicEnergyService.clienti;
 
-import it.epicode.EpicEnergyService.controller.ImportController;
+//import it.epicode.EpicEnergyService.controller.ImportController;
+import it.epicode.EpicEnergyService.fatture.FatturaRepository;
 import it.epicode.EpicEnergyService.model.Comune;
 import it.epicode.EpicEnergyService.model.Indirizzo;
 import it.epicode.EpicEnergyService.model.IndirizzoService;
@@ -31,10 +32,13 @@ public class ClienteRunner implements CommandLineRunner {
     IndirizzoService indirizzoService;
     @Autowired
     CSVImportService csvImportService;
-    @Autowired
-    private ImportController importController;
+//    @Autowired
+//    private ImportController importController;
     @Autowired
     private ComuneRepository comuneRepository;
+    @Autowired
+    private FatturaRepository fatturaRepository;
+
 
 
     @Override
@@ -79,7 +83,7 @@ public class ClienteRunner implements CommandLineRunner {
         cliente1.setSedeLegale(indirizzo2);
         clienteRepository.save(cliente1);
         System.out.println("------------------------------------------");
-        System.out.println("Cliente salvato con id: " + cliente1.getId());
+        System.out.println("Cliente salvato: " + cliente1.getRagioneSociale());
 
         Cliente cliente2 = new Cliente();
         cliente2.setRagioneSociale("Pizzeria Mamma Mia");
@@ -99,6 +103,6 @@ public class ClienteRunner implements CommandLineRunner {
         cliente2.setSedeLegale(indirizzo1);
         clienteRepository.save(cliente2);
         System.out.println("------------------------------------------");
-        System.out.println("Cliente salvato con id: " + cliente2.getId());
+        System.out.println("Cliente salvato: " + cliente2.getRagioneSociale());
     }
 }
